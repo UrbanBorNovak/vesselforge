@@ -207,10 +207,11 @@ app.get('/api/vessel/:blockHeight/report', (req, res) => {
         LCB: vesselRecord.lcb,
         LCF: vesselRecord.lcf,
         GM: vesselRecord.gm,
-        KB: 0,
-        KG: 0,
-        BMT: 0,
-        BML: 0
+        KB: vesselRecord.kb || 0,
+        KG: vesselRecord.kg || 0,
+        KM: vesselRecord.km || 0,
+        BMT: vesselRecord.bmt || 0,
+        BML: vesselRecord.bml || 0
       },
       adjustments: vesselRecord.adjustments
     };
@@ -336,10 +337,11 @@ app.get('/api/vessel/:blockHeight/download', async (req, res) => {
           LCB: vesselRecord.lcb,
           LCF: vesselRecord.lcf,
           GM: vesselRecord.gm,
-          KB: 0,
-          KG: 0,
-          BMT: 0,
-          BML: 0
+          KB: vesselRecord.kb || 0,
+          KG: vesselRecord.kg || 0,
+          KM: vesselRecord.km || 0,
+          BMT: vesselRecord.bmt || 0,
+          BML: vesselRecord.bml || 0
         },
         adjusted: vesselRecord.adjusted,
         adjustments: vesselRecord.adjustments

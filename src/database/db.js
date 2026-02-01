@@ -27,6 +27,11 @@ export function initDatabase() {
       volume REAL NOT NULL,
       lcb REAL NOT NULL,
       lcf REAL NOT NULL,
+      kb REAL NOT NULL,
+      kg REAL NOT NULL,
+      bmt REAL NOT NULL,
+      bml REAL NOT NULL,
+      km REAL NOT NULL,
       gm REAL NOT NULL,
       landlord_address TEXT,
       royalty_paid BOOLEAN DEFAULT 0,
@@ -53,12 +58,12 @@ export function saveVessel(data) {
       INSERT INTO vessels (
         block_height, block_hash, seed,
         loa, boa, depth, draft,
-        displacement, volume, lcb, lcf, gm,
+        displacement, volume, lcb, lcf, kb, kg, bmt, bml, km, gm,
         landlord_address, royalty_paid, adjusted, adjustments
       ) VALUES (
         @blockHeight, @blockHash, @seed,
         @loa, @boa, @depth, @draft,
-        @displacement, @volume, @lcb, @lcf, @gm,
+        @displacement, @volume, @lcb, @lcf, @kb, @kg, @bmt, @bml, @km, @gm,
         @landlordAddress, @royaltyPaid, @adjusted, @adjustments
       )
     `);
@@ -75,6 +80,11 @@ export function saveVessel(data) {
       volume: data.hydrostatics.volume,
       lcb: data.hydrostatics.LCB,
       lcf: data.hydrostatics.LCF,
+      kb: data.hydrostatics.KB,
+      kg: data.hydrostatics.KG,
+      bmt: data.hydrostatics.BMT,
+      bml: data.hydrostatics.BML,
+      km: data.hydrostatics.KM,
       gm: data.hydrostatics.GM,
       landlordAddress: data.landlordAddress || null,
       royaltyPaid: data.royaltyPaid ? 1 : 0,

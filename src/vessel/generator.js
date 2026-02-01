@@ -1,7 +1,23 @@
-import Vessel from 'vesseljs';
+/**
+ * Vessel structure representing hull geometry
+ */
+class Vessel {
+  constructor() {
+    this.attributes = {};
+    this.structure = {
+      hull: {
+        offsets: []
+      }
+    };
+  }
+
+  setAttributes(attrs) {
+    this.attributes = { ...this.attributes, ...attrs };
+  }
+}
 
 /**
- * Generate a tender hull from parameters using Vessel.js
+ * Generate a tender hull from parameters
  * @param {object} params - Vessel parameters {LOA, BOA, Depth, Draft}
  * @returns {object} - Vessel instance and computed data
  */
@@ -10,7 +26,6 @@ export function generateHull(params) {
 
   // Create a new vessel
   const vessel = new Vessel();
-  vessel.structure.hull = vessel.structure.hull || {};
 
   // Set basic attributes
   vessel.setAttributes({

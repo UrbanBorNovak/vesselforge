@@ -9,7 +9,7 @@ VesselForge is a unique application that generates boat designs by deriving para
 ## Features
 
 - 🔗 **Blockchain Integration**: Fetches Bitcoin block data from mempool.space
-- ⚓ **Naval Architecture**: Uses Vessel.js for hydrostatic and stability calculations
+- ⚓ **Naval Architecture**: Custom hydrostatic and stability calculations
 - 🎲 **Deterministic Generation**: SHA256 seed from block hash generates unique vessel parameters
 - 📊 **Stability Validation**: Automatically adjusts parameters when GM < 0.3m
 - 📦 **Complete Output Bundle**: JSON, SVG line plans, hydrostatic reports, assembly guides, ZIP archives
@@ -108,8 +108,8 @@ vesselforge/
 1. **Block Fetching**: Retrieves Bitcoin block data from mempool.space API
 2. **Seed Generation**: Creates SHA256 hash from block hash
 3. **Parameter Derivation**: Deterministically generates vessel dimensions (LOA, BOA, Depth, Draft)
-4. **Hull Generation**: Uses Vessel.js with offsets table to create hull geometry
-5. **Hydrostatics**: Calculates displacement, centers, metacentric height (GM)
+4. **Hull Generation**: Creates hull geometry with offsets table for tender hull shape
+5. **Hydrostatics**: Calculates displacement, centers, metacentric height (GM) using naval architecture formulas
 6. **Stability Validation**: Adjusts parameters if GM < 0.3m (minimum stability criterion)
 7. **Output Generation**: Creates JSON, SVG line plan, hydrostatic report, assembly guide
 8. **Database Storage**: Saves all data to SQLite
@@ -120,7 +120,7 @@ vesselforge/
 VesselForge ensures that all generated vessels meet minimum stability requirements:
 - **GM (Metacentric Height)**: Must be ≥ 0.3m
 - **Adjustment Strategy**: If GM < 0.3m, increases BOA and/or Draft
-- **Validation**: Uses Vessel.js hydrostatic calculations
+- **Validation**: Uses custom hydrostatic calculations based on naval architecture principles
 
 ## Output Files
 
@@ -161,7 +161,6 @@ CREATE TABLE vessels (
 ### Dependencies
 - **express**: Web server framework
 - **better-sqlite3**: SQLite database
-- **vesseljs**: Naval architecture calculations
 - **axios**: HTTP client for API calls
 - **archiver**: ZIP file creation
 
@@ -204,7 +203,7 @@ npm run dev
 ## Limitations
 
 - Uses mempool.space public API (rate limits may apply)
-- Vessel.js hydrostatic calculations are simplified
+- Hydrostatic calculations use simplified naval architecture formulas
 - Stability adjustments use heuristic methods
 - SVG line plans are basic representations
 - Ownership system is for demonstration only
@@ -228,8 +227,8 @@ Created by Urban for the Bitcoin Vessel Forge project.
 
 Built with:
 - Bitcoin blockchain data
-- Vessel.js naval architecture library
 - mempool.space API
+- Custom naval architecture calculations
 
 ## Disclaimer
 

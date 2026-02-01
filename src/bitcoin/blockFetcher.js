@@ -1,5 +1,6 @@
 import axios from 'axios';
 import crypto from 'crypto';
+import { getMockBlock, shouldUseMockData } from './mockData.js';
 
 /**
  * Fetch Bitcoin block data from mempool.space API
@@ -7,6 +8,12 @@ import crypto from 'crypto';
  * @returns {Promise<{height: number, hash: string, seed: string}>}
  */
 export async function fetchBlockData(blockIdentifier) {
+  // Use mock data if no internet or in test mode
+  if (shouldUseMockData()) {
+    console.log('   (Using mock data - no internet access)');
+    return getMockBlock(blockIdentifier);
+  }
+
   try {
     let blockHash;
     let blockHeight;
@@ -43,6 +50,11 @@ export async function fetchBlockData(blockIdentifier) {
       timestamp: blockData.timestamp
     };
   } catch (error) {
+    // Fallback to mock data on network error
+    if (error.code === 'ENOTFOUND' || error.code === 'ETIMEDOUT' || error.code === 'ECONNREFUSED') {
+      console.log('   (Network unavailable - using mock data)');
+      return getMockBlock(blockIdentifier);
+    }
     if (error.response?.status === 404) {
       throw new Error(`Block not found: ${blockIdentifier}`);
     }
@@ -55,6 +67,12 @@ export async function fetchBlockData(blockIdentifier) {
  * @returns {Promise<{height: number, hash: string, seed: string}>}
  */
 export async function fetchLatestBlock() {
+  // Use mock data if no internet or in test mode
+  if (shouldUseMockData()) {
+    console.log('   (Using mock data - no internet access)');
+    return getMockBlock('latest');
+  }
+
   try {
     const response = await axios.get(
       'https://mempool.space/api/blocks/tip/height',
@@ -63,6 +81,11 @@ export async function fetchLatestBlock() {
     const latestHeight = response.data;
     return await fetchBlockData(latestHeight);
   } catch (error) {
+    // Fallback to mock data on network error
+    if (error.code === 'ENOTFOUND' || error.code === 'ETIMEDOUT' || error.code === 'ECONNREFUSED') {
+      console.log('   (Network unavailable - using mock data)');
+      return getMockBlock('latest');
+    }
     throw new Error(`Failed to fetch latest block: ${error.message}`);
   }
 }
