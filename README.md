@@ -24,7 +24,9 @@ VesselForge is a unique application that generates boat designs by deriving para
 npm install
 ```
 
-## Usage
+## Quick Start
+
+See [USAGE.md](USAGE.md) for detailed examples.
 
 ### CLI Mode
 
@@ -36,11 +38,6 @@ npm start
 Generate from a specific block height:
 ```bash
 npm start 800000
-```
-
-Generate from a specific block hash:
-```bash
-npm start 00000000000000000002a7c4c1e48d76c5a37902165a270156b7a8d72728a054
 ```
 
 ### API Server Mode
@@ -157,6 +154,9 @@ CREATE TABLE vessels (
 ```
 
 ## Technical Details
+
+### Mock Data Fallback
+When internet access is unavailable or the mempool.space API is unreachable, VesselForge automatically falls back to using mock Bitcoin block data. This allows development and testing without network connectivity.
 
 ### Dependencies
 - **express**: Web server framework
