@@ -1,0 +1,21 @@
+{
+  "name": "vesselforge",
+  "version": "1.0.0",
+  "description": "Bitcoin Vessel Forge - Generate boat designs from Bitcoin blocks",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "server": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": ["bitcoin", "vessel", "boat", "design", "blockchain"],
+  "author": "Urban",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "better-sqlite3": "^9.2.2",
+    "axios": "^1.6.2",
+    "archiver": "^6.0.1"
+  }
+}
